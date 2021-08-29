@@ -1,13 +1,15 @@
 from typing import Dict
 from unittest import TestCase
 
-from utils import convert_str_to_dictstr_text
+from utils import convert_str_to_dict
 
 
 class TestUtils(TestCase):
     def test_convert_json_to_dict_type(self):
-        input_test = '{"account": {"active-card": true, "available-limit": 100}}'
-        result = convert_str_to_dictstr_text(input_test)
+        input_test = (
+            '{"account": {"active-card": true, "available-limit": 100}}'
+        )
+        result = convert_str_to_dict(input_test)
         self.assertEqual(type(result), dict)
 
     def test_convert_json_to_dict(self):
@@ -20,5 +22,5 @@ class TestUtils(TestCase):
 
         for dict_text, key_test, value_test in input_test:
             with self.subTest():
-                result = convert_str_to_dictstr_text(dict_text)
+                result = convert_str_to_dict(dict_text)
                 self.assertEqual(result.get(key_test), value_test)

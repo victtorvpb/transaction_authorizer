@@ -1,5 +1,5 @@
 import json
 
 
-def convert_str_to_dictstr_text(text):
+def convert_str_to_dict(text):
     return json.loads(text)

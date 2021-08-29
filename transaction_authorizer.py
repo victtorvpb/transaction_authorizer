@@ -1,16 +1,23 @@
-import json
 import sys
 
+from account import Account
 from utils import convert_str_to_dict
 
 
 def transaction_authorizer():
+    account = None
     lines = sys.stdin.readlines()
     for line in lines:
-        if not account and line.get("account"):
-            account = convert_str_to_dict(line)
-            account["violations"] = []
-            sys.stdout.write(str(account))
+        line_converted_in_dict = convert_str_to_dict(line)
+
+        if line_converted_in_dict.get("account") and not account:
+            data_line = line_converted_in_dict["account"]
+            account = Account(
+                active_card=data_line["active-card"],
+                available_limit=data_line["available-limit"],
+            )
+        elif line_converted_in_dict.get("account") and account:
+            account.print_account_alread_initialized()
 
 
 if __name__ == "__main__":
