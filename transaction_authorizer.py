@@ -18,6 +18,13 @@ def transaction_authorizer():
             )
         elif line_converted_in_dict.get("account") and account:
             account.print_account_alread_initialized()
+        elif line_converted_in_dict.get("transaction"):
+            if not account:
+                print(
+                    {"account": {}, "violations": ["account-not-initialized"]}
+                )
+            else:
+                pass
 
 
 if __name__ == "__main__":

@@ -33,3 +33,6 @@ class Account(object):
             },
             "violations": [],
         }
+
+    def add_transaction(self, transaction):
+        self._success_transactions = transaction
