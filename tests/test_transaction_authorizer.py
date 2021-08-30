@@ -1,7 +1,5 @@
 import sys
-from io import StringIO
 from unittest import TestCase
-from unittest.mock import patch
 
 from transaction_authorizer import transaction_authorizer
 
@@ -15,7 +13,7 @@ class TestTransactionAuthorizer(TestCase):
         sys.stdin = self.stdin
 
     def test_account_not_initialized(self):
-        input_test = '{"transaction": {"merchant": "Burger King", "amount": 20, "time": "2019-02-13T11:00:00.000Z"}}'
+        input_test = '{"transaction": {"merchant": "Burger King", "amount": 20, "time": "2019-02-13T11:00:00.000Z"}}'  # noqa
         stub_stdin(self, input_test)
 
         transaction_authorizer()

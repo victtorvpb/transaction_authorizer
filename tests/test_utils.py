@@ -1,7 +1,7 @@
-from typing import Dict
+from datetime import datetime
 from unittest import TestCase
 
-from utils import convert_str_to_dict
+from utils import convert_str_to_datetime, convert_str_to_dict
 
 
 class TestUtils(TestCase):
@@ -24,3 +24,16 @@ class TestUtils(TestCase):
             with self.subTest():
                 result = convert_str_to_dict(dict_text)
                 self.assertEqual(result.get(key_test), value_test)
+
+    def test_convert_datetime_to_str(self):
+
+        datetime_str = "2020-12-01T11:07:00.000Z"
+
+        converted_str = convert_str_to_datetime(datetime_str)
+
+        self.assertEqual(datetime, type(converted_str))
+        self.assertEqual(converted_str.year, 2020)
+        self.assertEqual(converted_str.month, 12)
+        self.assertEqual(converted_str.hour, 11)
+        self.assertEqual(converted_str.minute, 7)
+        self.assertEqual(converted_str.day, 1)
