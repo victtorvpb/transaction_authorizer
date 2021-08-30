@@ -11,7 +11,7 @@ or
 2. ```make run input_file='input_file_path'```
 
 ## Run with python
-```python transaction_authorizer.py<input_file_path```
+```python transaction_authorizer.py < input_file_path```
 
 ## Run tests
 1. ```make build```
