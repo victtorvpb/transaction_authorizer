@@ -17,6 +17,6 @@ or
 1. ```make build```
 2. ```make test ```
 
-or
-&nbsp;
+or  
+
 ``` python -m unittest discover -v -b```
