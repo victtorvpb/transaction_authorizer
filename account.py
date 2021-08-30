@@ -1,6 +1,6 @@
 import json
 from copy import deepcopy
-from datetime import timedelta
+from datetime import date, datetime, timedelta
 from typing import Dict, List
 
 from utils import convert_str_to_datetime
@@ -63,33 +63,34 @@ class Account(object):
     def _check_transaction_violation(self, transaction: Dict) -> List:
         violations = []
         transaction_copy = deepcopy(transaction)
-        if self.__check_add_transaction_active_card():
+
+        if self._check_add_transaction_not_active_card():
             violations.append("card-not-active")
 
-        if self.__check_transaction_available_limit(transaction_copy):
+        if self._check_transaction_available_limit(transaction_copy):
             violations.append("insufficient-limit")
 
-        if self.__check_high_frequency_small_interval(transaction_copy):
+        if self._check_high_frequency_small_interval(transaction_copy):
             violations.append("high-frequency-small-interval")
 
-        if self.__check_double_transaction(transaction_copy):
+        if self._check_double_transaction(transaction_copy):
             violations.append("double-transaction")
 
         return violations
 
-    def __check_add_transaction_active_card(self) -> bool:
+    def _check_add_transaction_not_active_card(self) -> bool:
         if not self._active_card:
             return True
 
         return False
 
-    def __check_transaction_available_limit(self, transaction) -> bool:
+    def _check_transaction_available_limit(self, transaction) -> bool:
         if self.__available_limit < transaction["amount"]:
             return True
 
         return False
 
-    def __check_high_frequency_small_interval(self, transaction) -> bool:
+    def _check_high_frequency_small_interval(self, transaction) -> bool:
         datetime_to_check = transaction["time"] - timedelta(minutes=2)
         transaction_count = 0
 
@@ -105,17 +106,10 @@ class Account(object):
 
         return False
 
-    def __check_double_transaction(self, transaction) -> bool:
+    def _check_double_transaction(self, transaction) -> bool:
         datetime_to_check = transaction["time"] - timedelta(minutes=2)
 
         for i in reversed(self.__transactions):
-            print(
-                transaction["merchant"],
-                "---",
-                transaction["amount"],
-                "----",
-                i["time"],
-            )
             if (
                 i["merchant"] == transaction["merchant"]
                 and i["amount"] == transaction["amount"]
