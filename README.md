@@ -14,8 +14,8 @@ or
 ```python transaction_authorizer.py<input_file_path```
 
 ## Run tests
-```make build
-   make test 
-```
+```make build```
+```make test ```
+
 or
-`` python -m unittest discover -v -b
+``` python -m unittest discover -v -b```
