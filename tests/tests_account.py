@@ -1,3 +1,5 @@
+import contextlib
+from io import StringIO
 from unittest import TestCase
 
 from account import Account
@@ -24,3 +26,30 @@ class TestAccount(TestCase):
 
         stdout_output = get_stdout()
         self.assertNotEqual(stdout_output, message)
+
+    def test_print_account_alread_initialized(self):
+        account = Account(active_card=True, available_limit=0)
+        message = '{"account": {"active-card": true, "available-limit": 0}, "violations": ["account-already-initialized"]}'  # noqa
+
+        temp_stdout = StringIO()
+
+        with contextlib.redirect_stdout(temp_stdout):
+
+            account.print_account_alread_initialized()
+
+        output = temp_stdout.getvalue().strip()
+
+        self.assertEqual(output, message)
+
+    def test_print_account_alread_initialized_fail(self):
+        account = Account(active_card=True, available_limit=0)
+
+        message = '{"teste": {"active-card": true, "available-limit": 0}, "violations": []}'  # noqa
+        temp_stdout = StringIO()
+
+        with contextlib.redirect_stdout(temp_stdout):
+
+            account.print_account_alread_initialized()
+
+        output = temp_stdout.getvalue().strip()
+        self.assertNotEqual(output, message)
