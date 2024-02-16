@@ -4,7 +4,7 @@
 - [GNU make](https://www.gnu.org/software/make/)
 
 or 
-- [python 3.9](https://www.python.org/downloads/) == 3.9
+- [python 3.9](https://www.python.org/downloads/)
 
 ## Run with docker
 1. ```make build```
